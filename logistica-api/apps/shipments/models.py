@@ -66,5 +66,9 @@ class ShipmentItem(models.Model):
         db_table = 'shipment_items'
         unique_together = ('shipment', 'product')
 
+    def save(self, *args, **kwargs):
+        self.subtotal = self.quantity * self.unit_price_at_time
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f'{self.shipment.tracking_number} - {self.product.name} x{self.quantity}'
