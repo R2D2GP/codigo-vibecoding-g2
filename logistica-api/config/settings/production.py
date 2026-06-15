@@ -1,4 +1,5 @@
 from decouple import Csv, config
+import dj_database_url
 
 from .base import *
 
@@ -17,9 +18,9 @@ DATABASES = {
 
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY', default='dummy-secret-key-replace-in-railway')
 
-CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', cast=Csv())
+CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='http://localhost:3000', cast=Csv())
 
 STORAGES = {
     'default': {
