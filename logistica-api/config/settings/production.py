@@ -22,6 +22,11 @@ SECRET_KEY = config('SECRET_KEY', default='dummy-secret-key-replace-in-railway')
 
 CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='http://localhost:3000', cast=Csv())
 
+FRONTEND_URL = config('FRONTEND_URL', default='')
+if FRONTEND_URL:
+    CORS_ALLOWED_ORIGINS.append(FRONTEND_URL)
+    ALLOWED_HOSTS.append(FRONTEND_URL.removeprefix('https://').removeprefix('http://').split('/')[0])
+
 STORAGES = {
     'default': {
         'BACKEND': 'django.core.files.storage.FileSystemStorage',
